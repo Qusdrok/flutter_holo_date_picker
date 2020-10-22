@@ -54,6 +54,8 @@ class DateTimePickerTheme {
     this.itemHeight: DATETIME_PICKER_ITEM_HEIGHT,
     this.itemTextStyle: DATETIME_PICKER_ITEM_TEXT_STYLE,
     this.dividerColor,
+    this.dividerSize,
+    this.itemSelectedTextStyle,
   });
 
   static const DateTimePickerTheme Default = const DateTimePickerTheme();
@@ -90,7 +92,9 @@ class DateTimePickerTheme {
 
   /// The value of DatePicker's column [TextStyle].
   final TextStyle itemTextStyle;
+  final TextStyle itemSelectedTextStyle;
 
   /// The value of DatePicker's Divider Color [TextStyle].
   final Color dividerColor;
+  final double dividerSize;
 }
