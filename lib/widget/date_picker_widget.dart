@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../date_time_formatter.dart';
-import '../date_picker_theme.dart';
 import '../date_picker_constants.dart';
+import '../date_picker_theme.dart';
+import '../date_time_formatter.dart';
 import '../i18n/date_picker_i18n.dart';
 
 /// Solar months of 31 days.
@@ -56,8 +56,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   bool _isChangeDateRange = false;
 
-  _DatePickerWidgetState(
-      DateTime minDateTime, DateTime maxDateTime, DateTime initialDateTime) {
+  _DatePickerWidgetState(DateTime minDateTime, DateTime maxDateTime, DateTime initialDateTime) {
     // handle current selected year、month、day
     DateTime initDateTime = initialDateTime ?? DateTime.now();
     this._currYear = initDateTime.year;
@@ -148,7 +147,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget _renderDatePickerWidget() {
     List<Widget> pickers = List<Widget>();
     List<String> formatArr =
-        DateTimeFormatter.splitDateFormat(widget.dateFormat);
+    DateTimeFormatter.splitDateFormat(widget.dateFormat);
     formatArr.forEach((format) {
       List<int> valueRange = _findPickerItemRange(format);
 
@@ -173,12 +172,11 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: pickers);
   }
 
-  Widget _renderDatePickerColumnComponent(
-      {@required FixedExtentScrollController scrollCtrl,
-      @required List<int> valueRange,
-      @required String format,
-      @required ValueChanged<int> valueChanged,
-      double fontSize}) {
+  Widget _renderDatePickerColumnComponent({@required FixedExtentScrollController scrollCtrl,
+    @required List<int> valueRange,
+    @required String format,
+    @required ValueChanged<int> valueChanged,
+    double fontSize}) {
     return Expanded(
       flex: 1,
       child: Stack(
@@ -189,7 +187,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               padding: EdgeInsets.symmetric(horizontal: 7, vertical: 18),
               height: widget.pickerTheme.pickerHeight,
               decoration:
-                  BoxDecoration(color: widget.pickerTheme.backgroundColor),
+              BoxDecoration(color: widget.pickerTheme.backgroundColor),
               child: CupertinoPicker(
                 backgroundColor: widget.pickerTheme.backgroundColor,
                 scrollController: scrollCtrl,
@@ -201,47 +199,63 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 children: List<Widget>.generate(
                   valueRange.last - valueRange.first + 1, (index) =>
                     _renderDatePickerItemComponent(
-                      valueRange.first + index, format, fontSize,),),
+                      valueRange.first + index, format, fontSize,
+                    ),
+                ),
               ),
             ),
           ),
           Positioned(
             child: Container(
-                margin: const EdgeInsets.only(top: 63),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    Expanded(
-                      child: Divider(
-                        color: widget.pickerTheme.dividerColor ??
-                            widget.pickerTheme.itemTextStyle.color,
-                        height: 1,
-                        thickness: 2,
-                      ),
+              margin: const EdgeInsets.only(top: widget.pickerTheme.dividerTopHeight ?? 99),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.02),
+                  Expanded(
+                    child: Divider(
+                      color: widget.pickerTheme.dividerColor ??
+                          widget.pickerTheme.itemTextStyle.color,
+                      height: 1,
+                      thickness: 2,
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
-                  ],
-                )),
+                  ),
+                  SizedBox(width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.02)
+                ],
+              ),
+            ),
           ),
           Positioned(
             child: Container(
-                margin: const EdgeInsets.only(top: 99),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    Expanded(
-                      child: Divider(
-                        color: widget.pickerTheme.dividerColor ??
-                            widget.pickerTheme.itemTextStyle.color,
-                        height: 1,
-                        thickness: 2,
-                      ),
+              margin: EdgeInsets.only(top: widget.pickerTheme.dividerBottomHeight ?? 99),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.02),
+                  Expanded(
+                    child: Divider(
+                      color: widget.pickerTheme.dividerColor ??
+                          widget.pickerTheme.itemTextStyle.color,
+                      height: 1,
+                      thickness: 2,
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  ],
-                )),
+                  ),
+                  SizedBox(width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.02),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -255,17 +269,17 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return DATETIME_PICKER_ITEM_TEXT_SIZE_BIG;
   }
 
-  Widget _renderDatePickerItemComponent(
-      int value, String format, double fontSize) {
+  Widget _renderDatePickerItemComponent(int value, String format, double fontSize) {
     return Container(
       height: widget.pickerTheme.itemHeight,
       alignment: Alignment.center,
       child: Text(
         DateTimeFormatter.formatDateTime(value, format, widget.locale),
         style: TextStyle(
-            color: widget.pickerTheme.itemTextStyle.color,
-            fontSize: fontSize ?? widget.pickerTheme.itemTextStyle.fontSize),
-        //widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+          color: widget.pickerTheme.itemTextStyle.color,
+          fontSize: fontSize ?? widget.pickerTheme.itemTextStyle.fontSize,
+          fontWeight: widget.pickerTheme.itemTextStyle.fontWeight ?? FontWeight.normal,
+        ),
       ),
     );
   }
@@ -381,7 +395,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   /// calculate the range of month
   List<int> _calcMonthRange() {
-    int minMonth = 1, maxMonth = 12;
+    int minMonth = 1,
+        maxMonth = 12;
     int minYear = _minDateTime.year;
     int maxYear = _maxDateTime.year;
     if (minYear == _currYear) {
@@ -397,7 +412,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   /// calculate the range of day
   List<int> _calcDayRange({currMonth}) {
-    int minDay = 1, maxDay = _calcDayCountOfMonth();
+    int minDay = 1,
+        maxDay = _calcDayCountOfMonth();
     int minYear = _minDateTime.year;
     int maxYear = _maxDateTime.year;
     int minMonth = _minDateTime.month;
