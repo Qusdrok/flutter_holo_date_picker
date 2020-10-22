@@ -97,4 +97,6 @@ class DateTimePickerTheme {
   /// The value of DatePicker's Divider Color [TextStyle].
   final Color dividerColor;
   final double dividerSize;
+  final double dividerTopHeight;
+  final double dividerBottomHeight;
 }
