@@ -55,6 +55,8 @@ class DateTimePickerTheme {
     this.itemTextStyle: DATETIME_PICKER_ITEM_TEXT_STYLE,
     this.dividerColor,
     this.dividerSize,
+    this.dividerTopHeight,
+    this.dividerBottomHeight,
     this.itemSelectedTextStyle,
   });
 
